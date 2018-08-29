@@ -13,10 +13,11 @@ uses
 {$R *.res}
 
 begin
+  Application.Title:='Laz Hero find';
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.
 
