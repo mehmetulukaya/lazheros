@@ -71,8 +71,7 @@ implementation
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 var
-  n,cnt,rnd1,rnd2:Integer;
-  nums:String;
+  n,cnt:Integer;
 begin
   Randomize;
   Caption:=Application.Title;
@@ -90,28 +89,6 @@ begin
   cnt:=imgfiles.Count-1;
   for n:=0 to cnt do
     imgfiles.Add(imgfiles.Strings[n]);  //why? two times files
-
-  cnt:=imgfiles.Count-1;
-  for n:=0 to cnt do
-    begin
-      repeat
-        rnd1:=Random(20);
-        rnd2:=Random(20);
-      until (rnd1<>rnd2);
-      imgfiles.Exchange(rnd1,rnd2);  //simple but good method
-    end;
-
-  for n:=0 to cnt do
-    begin
-      nums:=ExtractFileName(imgfiles.Strings[n]);
-      nums:=ExtractFileNameWithoutExt(nums);
-      try
-        imgmaps[n+1]:=StrToInt(nums);
-      except
-        ShowMessage('File name isn''t a number! : '+imgfiles.Strings[n]);
-        Exit;
-      end;
-    end;
 
   tmrStartUp.Enabled:=True;
 end;
@@ -204,9 +181,33 @@ end;
 
 procedure TfrmMain.tmrStartUpTimer(Sender: TObject);
 var
-  n:Integer;
+  n,cnt:Integer;
+  rnd1,rnd2:Integer;
+  nums:String;
 begin
   tmrStartUp.Enabled:=False;
+
+  cnt:=imgfiles.Count-1;
+  for n:=0 to cnt do
+    begin
+      repeat
+        rnd1:=Random(20);
+        rnd2:=Random(20);
+      until (rnd1<>rnd2);
+      imgfiles.Exchange(rnd1,rnd2);  //simple but good method
+    end;
+
+  for n:=0 to cnt do
+    begin
+      nums:=ExtractFileName(imgfiles.Strings[n]);
+      nums:=ExtractFileNameWithoutExt(nums);
+      try
+        imgmaps[n+1]:=StrToInt(nums);
+      except
+        ShowMessage('File name isn''t a number! : '+imgfiles.Strings[n]);
+        Exit;
+      end;
+    end;
   for n:=1 to 20 do
     with TImage(FindComponent('Image'+IntToStr(n))) do
     begin
