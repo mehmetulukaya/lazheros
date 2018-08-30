@@ -1,8 +1,35 @@
 object frmMain: TfrmMain
-  Left = 248
-  Height = 240
-  Top = 129
-  Width = 320
+  Left = 329
+  Height = 434
+  Top = 148
+  Width = 358
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSizeToolWin
   Caption = 'Main Form'
+  ClientHeight = 434
+  ClientWidth = 358
+  OnCreate = FormCreate
+  Position = poDesktopCenter
   LCLVersion = '1.9.0.0'
+  object img_Splash: TImage
+    Left = 0
+    Height = 434
+    Top = 0
+    Width = 358
+    Align = alClient
+    Stretch = True
+  end
+  object imglst_Heros: TImageList
+    Height = 80
+    Scaled = True
+    Width = 80
+    Left = 56
+    Top = 242
+  end
+  object tmrStartUp: TTimer
+    Enabled = False
+    Interval = 2000
+    Left = 133
+    Top = 242
+  end
 end

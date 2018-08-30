@@ -13,7 +13,7 @@ uses
 {$R *.res}
 
 begin
-  Application.Title:='Laz Hero find';
+  Application.Title:='Lazarus find Heros!';
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;
