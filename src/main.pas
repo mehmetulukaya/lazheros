@@ -39,12 +39,16 @@ type
     Image8: TImage;
     Image9: TImage;
     img_Splash: TImage;
+    Label1: TLabel;
+    lbl_Score: TLabel;
+    pnl_Top: TPanel;
     sbtn_StartGame: TSpeedButton;
     tmrGeneral: TTimer;
     tmrGamer: TTimer;
     tmrStartUp: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
+    procedure Label1DblClick(Sender: TObject);
     procedure sbtn_StartGameClick(Sender: TObject);
     procedure tmrGamerTimer(Sender: TObject);
     procedure tmrGeneralTimer(Sender: TObject);
@@ -63,6 +67,7 @@ var
 
   imgfiles : TStringList;
   imgmaps  : array[1..20] of Integer; //just for manupulation 1,9,2,5.png...
+  score    : array[1..20] of Integer; //for calculation of user memory score
 implementation
 
 {$R *.lfm}
@@ -130,11 +135,42 @@ begin
               pic2.Picture.Assign(img_Null.Picture);
               Exit;
             end;
-
           tmrGamer.Enabled:=True;
         end;
 
     end;
+end;
+
+var
+  clk:Boolean=false;
+procedure TfrmMain.Label1DblClick(Sender: TObject);
+var
+  n:Integer;
+begin
+  Exit;
+
+  //for testing...
+  if not clk then
+    begin
+      clk:=True;
+      for n:=1 to 20 do
+        with TImage(FindComponent('Image'+IntToStr(n))) do
+        begin
+          if FileExists(imgfiles.Strings[n-1]) then  // for security
+              Picture.LoadFromFile(imgfiles.Strings[n-1]);
+        end;
+    end
+    else
+    begin
+      clk:=False;
+      for n:=1 to 20 do
+        with TImage(FindComponent('Image'+IntToStr(n))) do
+        begin
+          Picture.Assign(img_Null.Picture);
+        end;
+    end;
+
+
 end;
 
 procedure TfrmMain.sbtn_StartGameClick(Sender: TObject);
@@ -152,6 +188,8 @@ begin
       click_cnt:=0;
       if imgmaps[pic1.Tag]=imgmaps[pic2.Tag] then
         begin
+          Inc(score[pic1.Tag]);
+          Inc(score[pic2.Tag]);
           pic1.Visible:=False;
           pic2.Visible:=False;
         end
@@ -159,6 +197,8 @@ begin
         begin
           pic1.Picture.Assign(img_Null.Picture);
           pic2.Picture.Assign(img_Null.Picture);
+          Dec(score[pic1.Tag]);
+          Dec(score[pic2.Tag]);
         end;
     end;
 end;
@@ -166,7 +206,9 @@ end;
 procedure TfrmMain.tmrGeneralTimer(Sender: TObject);
 var
   n,
-  vis_cnt:Integer;
+  vis_cnt,
+  tot_click:Integer;
+  x_score:Double;
 begin
   vis_cnt:=0;
   for n:=1 to 20 do
@@ -177,6 +219,12 @@ begin
       tmrGeneral.Enabled:=False;
       sbtn_StartGame.Visible:=True;
     end;
+
+  tot_click:=0;
+  for n:=1 to 20 do
+    tot_click+=score[n];
+  x_score:=tot_click/2;
+  lbl_Score.Caption:=FloatToStr(x_score);
 end;
 
 procedure TfrmMain.tmrStartUpTimer(Sender: TObject);
@@ -214,6 +262,9 @@ begin
       Picture.Assign(img_Null.Picture);
       Visible:=True;
     end;
+
+  for n:=1 to 20 do  //minimum click per picture
+    score[n]:=1;
 
   img_Splash.Visible:=False;
   tmrGeneral.Enabled:=True;

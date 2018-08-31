@@ -22,7 +22,7 @@ object frmMain: TfrmMain
     Tag = 1
     Left = 6
     Height = 80
-    Top = 4
+    Top = 42
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -31,7 +31,7 @@ object frmMain: TfrmMain
     Tag = 2
     Left = 96
     Height = 80
-    Top = 4
+    Top = 42
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -40,7 +40,7 @@ object frmMain: TfrmMain
     Tag = 3
     Left = 186
     Height = 80
-    Top = 4
+    Top = 42
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -49,7 +49,7 @@ object frmMain: TfrmMain
     Tag = 4
     Left = 276
     Height = 80
-    Top = 4
+    Top = 42
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -58,7 +58,7 @@ object frmMain: TfrmMain
     Tag = 5
     Left = 6
     Height = 80
-    Top = 93
+    Top = 131
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -67,7 +67,7 @@ object frmMain: TfrmMain
     Tag = 6
     Left = 96
     Height = 80
-    Top = 93
+    Top = 131
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -76,7 +76,7 @@ object frmMain: TfrmMain
     Tag = 7
     Left = 186
     Height = 80
-    Top = 93
+    Top = 131
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -85,7 +85,7 @@ object frmMain: TfrmMain
     Tag = 8
     Left = 276
     Height = 80
-    Top = 93
+    Top = 131
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -94,7 +94,7 @@ object frmMain: TfrmMain
     Tag = 9
     Left = 6
     Height = 80
-    Top = 181
+    Top = 219
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -103,7 +103,7 @@ object frmMain: TfrmMain
     Tag = 10
     Left = 96
     Height = 80
-    Top = 181
+    Top = 219
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -112,7 +112,7 @@ object frmMain: TfrmMain
     Tag = 11
     Left = 186
     Height = 80
-    Top = 181
+    Top = 219
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -121,7 +121,7 @@ object frmMain: TfrmMain
     Tag = 12
     Left = 276
     Height = 80
-    Top = 181
+    Top = 219
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -130,7 +130,7 @@ object frmMain: TfrmMain
     Tag = 13
     Left = 6
     Height = 80
-    Top = 267
+    Top = 305
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -139,7 +139,7 @@ object frmMain: TfrmMain
     Tag = 14
     Left = 96
     Height = 80
-    Top = 267
+    Top = 305
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -148,7 +148,7 @@ object frmMain: TfrmMain
     Tag = 15
     Left = 186
     Height = 80
-    Top = 267
+    Top = 305
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -157,7 +157,7 @@ object frmMain: TfrmMain
     Tag = 16
     Left = 276
     Height = 80
-    Top = 267
+    Top = 305
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -166,7 +166,7 @@ object frmMain: TfrmMain
     Tag = 17
     Left = 6
     Height = 80
-    Top = 353
+    Top = 391
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -175,7 +175,7 @@ object frmMain: TfrmMain
     Tag = 18
     Left = 96
     Height = 80
-    Top = 353
+    Top = 391
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -184,7 +184,7 @@ object frmMain: TfrmMain
     Tag = 19
     Left = 186
     Height = 80
-    Top = 353
+    Top = 391
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -193,7 +193,7 @@ object frmMain: TfrmMain
     Tag = 20
     Left = 276
     Height = 80
-    Top = 353
+    Top = 391
     Width = 80
     OnClick = Image1Click
     Stretch = True
@@ -419,17 +419,64 @@ object frmMain: TfrmMain
     Visible = False
   end
   object sbtn_StartGame: TSpeedButton
-    Left = 6
-    Height = 56
-    Top = 448
-    Width = 354
+    Left = 0
+    Height = 34
+    Top = 486
+    Width = 367
+    Align = alBottom
     Caption = 'START NEW GAME'
     Visible = False
     OnClick = sbtn_StartGameClick
   end
+  object pnl_Top: TPanel
+    Left = 0
+    Height = 36
+    Top = 0
+    Width = 367
+    Align = alTop
+    ClientHeight = 36
+    ClientWidth = 367
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 1
+      Height = 34
+      Top = 1
+      Width = 78
+      Align = alLeft
+      AutoSize = False
+      Caption = 'SCORE:'
+      Font.CharSet = TURKISH_CHARSET
+      Font.Color = clBlack
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+      OnDblClick = Label1DblClick
+    end
+    object lbl_Score: TLabel
+      Left = 79
+      Height = 34
+      Top = 1
+      Width = 78
+      Align = alLeft
+      AutoSize = False
+      Font.CharSet = TURKISH_CHARSET
+      Font.Color = clBlack
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+    end
+  end
   object tmrStartUp: TTimer
     Enabled = False
-    Interval = 3000
+    Interval = 2500
     OnTimer = tmrStartUpTimer
     Left = 16
     Top = 440
@@ -442,7 +489,7 @@ object frmMain: TfrmMain
   end
   object tmrGeneral: TTimer
     Enabled = False
-    Interval = 2500
+    Interval = 1500
     OnTimer = tmrGeneralTimer
     Left = 224
     Top = 440
