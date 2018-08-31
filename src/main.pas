@@ -80,7 +80,7 @@ begin
   img_path:='..'+dir+'hero_images'+dir;  // '../hero_images/'
 
   img_Splash.Align:=alClient;
-  img_Splash.Picture.LoadFromFile(img_path+'hw'+dir+'launch.jpg');
+  img_Splash.Picture.LoadFromFile(img_path+'hw'+dir+'animals.png');
 
   imgfiles:=TStringList.Create;
   FindAllFiles(imgfiles,img_path,'*.png',false,faAnyFile);
