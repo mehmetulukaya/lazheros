@@ -77,7 +77,7 @@ begin
   Caption:=Application.Title;
   app_path:=GetCurrentDir;
   dir:=DirectorySeparator;  // for shorting
-  img_path:='..'+dir+'hero_images'+dir;  // '../hero_images/'
+  img_path:=app_path+dir+'hero_images'+dir;  // 'hero_images/'
 
   img_Splash.Align:=alClient;
   img_Splash.Picture.LoadFromFile(img_path+'hw'+dir+'animals.png');
