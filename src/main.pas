@@ -50,7 +50,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Image1Click(Sender: TObject);
-    procedure Label1DblClick(Sender: TObject);
     procedure sbtn_StartGameClick(Sender: TObject);
     procedure tmrGamerTimer(Sender: TObject);
     procedure tmrGeneralTimer(Sender: TObject);
@@ -157,6 +156,8 @@ begin
               click_cnt:=0;
               pic1.Picture.Assign(img_Null.Picture);
               pic2.Picture.Assign(img_Null.Picture);
+              Dec(score[pic1.Tag]);
+              Dec(score[pic2.Tag]);
               Exit;
             end;
           tmrGamer.Enabled:=True;
@@ -165,37 +166,7 @@ begin
     end;
 end;
 
-var
-  clk:Boolean=false;
-procedure TfrmMain.Label1DblClick(Sender: TObject);
-var
-  n:Integer;
-begin
-  //for testing...
-  if not clk then
-    begin
-      clk:=True;
-      for n:=1 to 20 do
-        with TImage(FindComponent('Image'+IntToStr(n))) do
-        begin
-          if FileExists(imgfiles.Strings[n-1]) then  // for security
-              Picture.LoadFromFile(imgfiles.Strings[n-1]);
-        end;
-    end
-    else
-    begin
-      clk:=False;
-      for n:=1 to 20 do
-        with TImage(FindComponent('Image'+IntToStr(n))) do
-        begin
-          Picture.Assign(img_Null.Picture);
-        end;
-    end;
-end;
-
 procedure TfrmMain.sbtn_StartGameClick(Sender: TObject);
-var
-  n:Integer;
 begin
   tmrStartUpTimer(nil);
 end;

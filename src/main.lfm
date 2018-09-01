@@ -445,7 +445,6 @@ object frmMain: TfrmMain
       Layout = tlCenter
       ParentColor = False
       ParentFont = False
-      OnDblClick = Label1DblClick
     end
     object lbl_Score: TLabel
       Left = 72
