@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
-  Buttons, StdCtrls
+  Buttons, StdCtrls, EditBtn
 
   ,FileUtil  // for findfiles
 
@@ -17,6 +17,7 @@ type
   { TfrmMain }
 
   TfrmMain = class(TForm)
+    cmb_Directory: TComboBox;
     Image1: TImage;
     Image10: TImage;
     Image11: TImage;
@@ -42,11 +43,12 @@ type
     Label1: TLabel;
     lbl_Score: TLabel;
     pnl_Top: TPanel;
-    sbtn_StartGame: TSpeedButton;
+    sbtn_StartGame1: TSpeedButton;
     tmrGeneral: TTimer;
     tmrGamer: TTimer;
     tmrStartUp: TTimer;
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure Image1Click(Sender: TObject);
     procedure Label1DblClick(Sender: TObject);
     procedure sbtn_StartGameClick(Sender: TObject);
@@ -66,6 +68,7 @@ var
   dir    : String;
 
   imgfiles : TStringList;
+  imgDirs  : TStringList;
   imgmaps  : array[1..20] of Integer; //just for manupulation 1,9,2,5.png...
   score    : array[1..20] of Integer; //for calculation of user memory score
 implementation
@@ -77,25 +80,46 @@ implementation
 procedure TfrmMain.FormCreate(Sender: TObject);
 var
   n,cnt:Integer;
+  str:String;
 begin
   Randomize;
   Caption:=Application.Title;
   app_path:=GetCurrentDir;
   dir:=DirectorySeparator;  // for shorting
-  img_path:=app_path+dir+'hero_images'+dir;  // 'hero_images/'
-
-  img_Splash.Align:=alClient;
-  img_Splash.Picture.LoadFromFile(img_path+'hw'+dir+'animals.png');
 
   imgfiles:=TStringList.Create;
-  FindAllFiles(imgfiles,img_path,'*.png',false,faAnyFile);
-  imgfiles.Sort;
+  imgDirs:=TStringList.Create;
 
-  cnt:=imgfiles.Count-1;
-  for n:=0 to cnt do
-    imgfiles.Add(imgfiles.Strings[n]);  //why? two times files
+
+  img_Splash.Align:=alClient;
+  img_Splash.Picture.LoadFromFile(app_path+dir+'startup.png');
+
+  FindAllDirectories(imgDirs,app_path,False);
+  imgDirs.Sort;
+
+  n:=0;
+  repeat
+    if Pos('images',imgDirs.Strings[n])=0 then
+      begin
+        imgDirs.Delete(n);
+        Dec(n);
+      end
+      else
+      begin
+        str:=imgDirs.Strings[n];
+        Delete(str,1,Length(app_path));
+        imgDirs.Strings[n]:=str;
+      end;
+    Inc(n);
+  until n>=imgDirs.Count;
+  cmb_Directory.Items:=imgDirs;
 
   tmrStartUp.Enabled:=True;
+end;
+
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+  cmb_Directory.ItemIndex:=0;
 end;
 
 var
@@ -147,8 +171,6 @@ procedure TfrmMain.Label1DblClick(Sender: TObject);
 var
   n:Integer;
 begin
-  Exit;
-
   //for testing...
   if not clk then
     begin
@@ -169,14 +191,13 @@ begin
           Picture.Assign(img_Null.Picture);
         end;
     end;
-
-
 end;
 
 procedure TfrmMain.sbtn_StartGameClick(Sender: TObject);
+var
+  n:Integer;
 begin
   tmrStartUpTimer(nil);
-  sbtn_StartGame.Visible:=False;
 end;
 
 procedure TfrmMain.tmrGamerTimer(Sender: TObject);
@@ -217,7 +238,6 @@ begin
   if vis_cnt=20 then
     begin
       tmrGeneral.Enabled:=False;
-      sbtn_StartGame.Visible:=True;
     end;
 
   tot_click:=0;
@@ -234,6 +254,17 @@ var
   nums:String;
 begin
   tmrStartUp.Enabled:=False;
+
+  imgfiles.Clear;
+
+  img_path:=app_path+cmb_Directory.Text+dir;  // 'hero_images/'
+  FindAllFiles(imgfiles,img_path,'*.png',false,faAnyFile);
+  imgfiles.Sort;
+
+  cnt:=imgfiles.Count-1;
+  for n:=0 to cnt do
+    imgfiles.Add(imgfiles.Strings[n]);  //why? two times files
+
 
   cnt:=imgfiles.Count-1;
   for n:=0 to cnt do
